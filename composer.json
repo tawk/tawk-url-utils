@@ -1,0 +1,17 @@
+{
+    "name": "tawk/url-match",
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "version" : "1.0.0",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Tawk\\": "lib"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}
