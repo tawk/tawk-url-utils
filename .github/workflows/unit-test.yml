@@ -3,7 +3,7 @@ name: unit-test
 on: [pull_request]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -20,20 +20,6 @@ jobs:
       - name: install dependencies
         if: steps.cached-dependencies.outputs.cache-hit != 'true'
         uses: php-actions/composer@v6
-  test:
-    runs-on: ubuntu-latest
-    needs: [build]
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-
-      - name: cached dependencies
-        uses: actions/cache@v2
-        id: cached-dependencies
-        with:
-          path: ./vendor
-          # the key will change if composer.lock changes
-          key: ${{ runner.os }}-dependencies-${{ hashFiles('**/composer.lock') }}
 
       - name: run tests
         run: composer run test
