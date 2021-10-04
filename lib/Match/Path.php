@@ -51,13 +51,9 @@ class Path {
 
 	private static function match_path_chunks_reverse($current_path_chunks, $pattern_path_chunks, $is_middle = false) {
 		$offset = count($current_path_chunks) - count($pattern_path_chunks);
-		for ($i = count($current_path_chunks); $i >= 0; $i--) {
+		for ($i = count($current_path_chunks) - 1; $i >= 0; $i--) {
 			$current_path_chunk = $current_path_chunks[$i];
-			$pattern_path_chunk = $pattern_path_chunks[$i];
-
-			if ($offset > 0) {
-				$pattern_path_chunk = $pattern_path_chunks[$i - $offset];
-			}
+			$pattern_path_chunk = $pattern_path_chunks[$i - $offset];
 
 			if (Path::is_wildcard($pattern_path_chunk)) {
 				if ($is_middle) {
