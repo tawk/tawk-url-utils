@@ -20,7 +20,7 @@ class Path {
 		return $pattern_chunk === WILDCARD;
 	}
 
-	public static function get_path_chunks($path) {
+	public static function get_chunks($path) {
 		$chunks = explode('/', $path);
 		$filtered_chunks = array_filter($chunks, function ($item) {
 			return empty($item) !== true;
@@ -28,7 +28,7 @@ class Path {
 		return array_values($filtered_chunks);
 	}
 
-	private static function match_path_chunks($current_path_chunks, $pattern_path_chunks, $is_middle = false) {
+	private static function match_chunks($current_path_chunks, $pattern_path_chunks, $is_middle = false) {
 		for ($i = 0; $i < count($current_path_chunks); $i++) {
 			$current_path_chunk = $current_path_chunks[$i];
 			$pattern_path_chunk = $pattern_path_chunks[$i];
@@ -49,7 +49,7 @@ class Path {
 		return true;
 	}
 
-	private static function match_path_chunks_reverse($current_path_chunks, $pattern_path_chunks, $is_middle = false) {
+	private static function match_chunks_reverse($current_path_chunks, $pattern_path_chunks, $is_middle = false) {
 		$offset = count($current_path_chunks) - count($pattern_path_chunks);
 		for ($i = count($current_path_chunks) - 1; $i >= 0; $i--) {
 			$current_path_chunk = $current_path_chunks[$i];
@@ -71,30 +71,42 @@ class Path {
 		return true;
 	}
 
-	public static function match_path($current_path, $pattern_path) {
-		$current_path_chunks = Path::get_path_chunks($current_path);
-		$pattern_path_chunks = Path::get_path_chunks($pattern_path);
+	public static function match($current_path, $pattern_paths = []) {
+		$current_path_chunks = Path::get_chunks($current_path);
 
-		if (count($current_path_chunks) < count($pattern_path_chunks)) {
-			return false;
+		$valid = true;
+		foreach($pattern_paths as $pattern_path) {
+			if (!$valid) {
+				return false;
+			}
+
+			$pattern_path_chunks = Path::get_chunks($pattern_path);
+			if (count($current_path_chunks) < count($pattern_path_chunks)) {
+				return false;
+			}
+
+			// if it does not have wildcard
+			if (!Path::has_wildcard($pattern_path)) {
+				$valid = join('/', $current_path_chunks) === join('/', $pattern_path_chunks);
+				continue;
+			}
+
+			// if wildcard is at the start
+			if (Path::is_wildcard($pattern_path_chunks[0])) {
+				$valid = Path::match_chunks_reverse($current_path_chunks, $pattern_path_chunks);
+				continue;
+			}
+
+			// if wildcard is at the end
+			if (Path::is_wildcard(end($pattern_path_chunks))) {
+				$valid = Path::match_chunks($current_path_chunks, $pattern_path_chunks);
+				continue;
+			}
+
+			// if wildcard is at the middle
+			$valid = Path::match_chunks($current_path_chunks, $pattern_path_chunks, true);
 		}
 
-		// if it does not have wildcard
-		if (!Path::has_wildcard($pattern_path)) {
-			return join('/', $current_path_chunks) === join('/', $pattern_path_chunks);
-		}
-
-		// if wildcard is at the start
-		if (Path::is_wildcard($pattern_path_chunks[0])) {
-			return Path::match_path_chunks_reverse($current_path_chunks, $pattern_path_chunks);
-		}
-
-		// if wildcard is at the end
-		if (Path::is_wildcard(end($pattern_path_chunks))) {
-			return Path::match_path_chunks($current_path_chunks, $pattern_path_chunks);
-		}
-
-		// if wildcard is at the middle
-		return Path::match_path_chunks($current_path_chunks, $pattern_path_chunks, true);
+		return $valid;
 	}
 }
