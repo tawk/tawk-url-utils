@@ -190,6 +190,25 @@ class UrlTest extends TestCase {
 	 * @group match_url
 	 * @covers ::match()
 	 */
+	public function should_match_one_for_multiple_patterns_provided() {
+		$url = 'http://www.example.com/this/path/should/lead/to/somewhere';
+		$pattern = [
+			'this/path/should/lead/to/elsewhere',
+			'http://www.example.com/this/path/should/lead/in/*',
+			'http://www.example.com/*/path/should/lead/to/me',
+			'*/nowhere',
+			'this/*/should/lead/to/somewhere' // valid
+		];
+		$result = Url::match($url, $pattern);
+
+		$this->assertTrue($result);
+	}
+
+	/**
+	 * @test
+	 * @group match_url
+	 * @covers ::match()
+	 */
 	public function should_not_match_if_pattern_and_url_differs() {
 		$url = 'http://www.example.com/this/path/should/lead/to/somewhere';
 		$pattern = ['www.example.com/this/path/should/different/to/somewhere'];
@@ -203,14 +222,14 @@ class UrlTest extends TestCase {
 	 * @group match_url
 	 * @covers ::match()
 	 */
-	public function should_not_match_multiple_patterns_if_one_differs() {
+	public function should_not_match_any_for_different_patterns_provided() {
 		$url = 'http://www.example.com/this/path/should/lead/to/somewhere';
 		$pattern = [
-			'this/path/should/lead/to/somewhere',
-			'http://www.example.com/this/path/should/lead/to/*',
+			'this/path/should/lead/to/elsewhere',
+			'http://www.example.com/this/path/should/lead/in/*',
 			'http://www.example.com/*/path/should/lead/to/me',
-			'*/somewhere',
-			'this/*/should/lead/to/somewhere'
+			'*/nowhere',
+			'this/*/shouldnot/lead/to/somewhere'
 		];
 		$result = Url::match($url, $pattern);
 

@@ -114,6 +114,24 @@ class PathTest extends TestCase {
 	 * @group match_path
 	 * @covers ::match()
 	 */
+	public function should_match_one_for_multiple_patterns_provided() {
+		$path = '/path/to/somewhere';
+		$pattern = [
+			'/path/to/elsewhere',
+			'/path/on/*',
+			'/path/nowhere',
+			'*/to/somewhere', // valid
+			'*/others'
+		];
+
+		$this->assertTrue(Path::match($path, $pattern));
+	}
+
+	/**
+	 * @test
+	 * @group match_path
+	 * @covers ::match()
+	 */
 	public function should_not_match_path_if_pattern_chunk_differs_from_path() {
 		$path = '/this/path/should/lead/to/somewhere';
 		$pattern = ['/this/path/should/different/to/somewhere'];
@@ -162,15 +180,14 @@ class PathTest extends TestCase {
 	 * @group match_path
 	 * @covers ::match()
 	 */
-	public function should_not_match_multiple_pattern_for_path_if_one_differs() {
+	public function should_not_match_multiple_pattern_for_path_if_all_differs() {
 		$path = '/path/to/somewhere';
 		$pattern = [
-			'/path/to/somewhere',
-			'/path/to/*',
+			'/path/to/elsewhere',
+			'/path/on/*',
 			'/path/nowhere',
-			'*/to/somewhere',
-			'*/somewhere',
-			'*'
+			'*/is/somewhere',
+			'*/others'
 		];
 
 		$this->assertFalse(Path::match($path, $pattern));

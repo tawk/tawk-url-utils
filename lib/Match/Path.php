@@ -74,15 +74,11 @@ class Path {
 	public static function match($current_path, $pattern_paths = []) {
 		$current_path_chunks = Path::get_chunks($current_path);
 
-		$valid = true;
+		$valid = false;
 		foreach($pattern_paths as $pattern_path) {
-			if (!$valid) {
-				return false;
-			}
-
 			$pattern_path_chunks = Path::get_chunks($pattern_path);
-			if (count($current_path_chunks) < count($pattern_path_chunks)) {
-				return false;
+			if ($valid) {
+				return true;
 			}
 
 			// if it does not have wildcard
@@ -99,6 +95,14 @@ class Path {
 
 			// if wildcard is at the end
 			if (Path::is_wildcard(end($pattern_path_chunks))) {
+
+				// invalidates if the current path is /path/to/somewhere
+				// and the pattern is /path/to/somewhere/*
+				if (count($current_path_chunks) < count($pattern_path_chunks)) {
+					$valid = false;
+					continue;
+				}
+
 				$valid = Path::match_chunks($current_path_chunks, $pattern_path_chunks);
 				continue;
 			}

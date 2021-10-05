@@ -18,10 +18,10 @@ class Url{
 	public static function match($current_url, $pattern_urls = []) {
 		$parsed_current_url = parse_url($current_url);
 
-		$valid = true;
+		$valid = false;
 		foreach($pattern_urls as $pattern_url) {
-			if (!$valid) {
-				return false;
+			if ($valid) {
+				return true;
 			}
 
 			$parsed_pattern_url = parse_url($pattern_url);
