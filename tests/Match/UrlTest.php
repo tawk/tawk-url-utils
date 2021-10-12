@@ -177,7 +177,6 @@ class UrlTest extends TestCase {
 			'this/path/should/lead/to/somewhere',
 			'http://www.example.com/this/path/should/lead/to/*',
 			'http://www.example.com/*/path/should/lead/to/somewhere',
-			'*/somewhere',
 			'this/*/should/lead/to/somewhere'
 		];
 		$result = Url::match($url, $pattern);
@@ -196,7 +195,6 @@ class UrlTest extends TestCase {
 			'this/path/should/lead/to/elsewhere',
 			'http://www.example.com/this/path/should/lead/in/*',
 			'http://www.example.com/*/path/should/lead/to/me',
-			'*/nowhere',
 			'this/*/should/lead/to/somewhere' // valid
 		];
 		$result = Url::match($url, $pattern);
@@ -228,7 +226,6 @@ class UrlTest extends TestCase {
 			'this/path/should/lead/to/elsewhere',
 			'http://www.example.com/this/path/should/lead/in/*',
 			'http://www.example.com/*/path/should/lead/to/me',
-			'*/nowhere',
 			'this/*/shouldnot/lead/to/somewhere'
 		];
 		$result = Url::match($url, $pattern);

@@ -100,10 +100,7 @@ class PathTest extends TestCase {
 		$pattern = [
 			'/path/to/somewhere',
 			'/path/to/*',
-			'/path/*',
-			'*/to/somewhere',
-			'*/somewhere',
-			'*'
+			'*/somewhere'
 		];
 
 		$this->assertTrue(Path::match($path, $pattern));
@@ -119,9 +116,7 @@ class PathTest extends TestCase {
 		$pattern = [
 			'/path/to/elsewhere',
 			'/path/on/*',
-			'/path/nowhere',
-			'*/to/somewhere', // valid
-			'*/others'
+			'*/to/somewhere' // valid
 		];
 
 		$this->assertTrue(Path::match($path, $pattern));
@@ -172,8 +167,6 @@ class PathTest extends TestCase {
 		$path = '/path/to/somewhere';
 		$pattern = [
 			'/path/to/elsewhere',
-			'/path/on/*',
-			'/path/nowhere',
 			'*/is/somewhere',
 			'*/others'
 		];
