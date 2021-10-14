@@ -202,6 +202,58 @@ class UrlTest extends TestCase {
 		$this->assertTrue($result);
 	}
 
+		// should match path and pattern that only has slash
+	/**
+	 * @test
+	 * @group match_url
+	 * @covers ::match()
+	 */
+	public function should_match_url_and_pattern_with_slashes_only() {
+		$path = 'http://www.example.com/';
+		$pattern = ['http://www.example.com/'];
+
+		$this->assertTrue(Url::match($path, $pattern));
+	}
+
+	// should match path and pattern with leading spaces
+	/**
+	 * @test
+	 * @group match_url
+	 * @covers ::match()
+	 */
+	public function should_match_url_and_pattern_that_contains_leading_space() {
+		$path = 'http://www.example.com/path/to/somewhere';
+		$pattern = [' http://www.example.com/path/to/somewhere'];
+
+		$this->assertTrue(Url::match($path, $pattern));
+	}
+
+	// should match path and pattern with ending spaces
+	/**
+	 * @test
+	 * @group match_url
+	 * @covers ::match()
+	 */
+	public function should_match_url_and_pattern_that_contains_trailing_space() {
+		$path = 'http://www.example.com/path/to/somewhere';
+		$pattern = ['http://www.example.com/path/to/somewhere '];
+
+		$this->assertTrue(Url::match($path, $pattern));
+	}
+
+	// should match path and url encoded pattern
+	/**
+	 * @test
+	 * @group match_url
+	 * @covers ::match()
+	 */
+	public function should_match_url_and_url_encoded_pattern() {
+		$path = 'http://www.example.com/path/to/somewhere';
+		$pattern = [urlencode('http://www.example.com/path/to/somewhere')];
+
+		$this->assertTrue(Url::match($path, $pattern));
+	}
+
 	/**
 	 * @test
 	 * @group match_url

@@ -122,6 +122,79 @@ class PathTest extends TestCase {
 		$this->assertTrue(Path::match($path, $pattern));
 	}
 
+	// should match path and pattern that only has slash
+	/**
+	 * @test
+	 * @group match_path
+	 * @covers ::match()
+	 */
+	public function should_match_path_and_pattern_with_slashes_only() {
+		$path = '/';
+		$pattern = ['/'];
+
+		$this->assertTrue(Path::match($path, $pattern));
+	}
+
+	// should match path and pattern with leading spaces
+	/**
+	 * @test
+	 * @group match_path
+	 * @covers ::match()
+	 */
+	public function should_match_path_and_pattern_that_contains_leading_space() {
+		$path = 'path/to/somewhere';
+		$pattern = [' path/to/somewhere'];
+
+		$this->assertTrue(Path::match($path, $pattern));
+	}
+
+	// should match path and pattern with ending spaces
+	/**
+	 * @test
+	 * @group match_path
+	 * @covers ::match()
+	 */
+	public function should_match_path_and_pattern_that_contains_trailing_space() {
+		$path = 'path/to/somewhere';
+		$pattern = ['path/to/somewhere '];
+
+		$this->assertTrue(Path::match($path, $pattern));
+	}
+
+	// should match path and url encoded pattern
+	public function should_match_path_and_url_encoded_pattern() {
+		$path = 'path/to/somewhere';
+		$pattern = [urlencode('path/to/somewhere')];
+
+		$this->assertTrue(Path::match($path, $pattern));
+	}
+
+	// should not match path with slash and pattern with starting wildcard
+	/**
+	 * @test
+	 * @group match_path
+	 * @covers ::match()
+	 */
+	public function should_not_match_path_contains_slash_and_pattern_contains_leading_wildcard() {
+		$path = '/';
+		$pattern = ['*/to/somewhere'];
+
+		$this->assertFalse(Path::match($path, $pattern));
+	}
+
+	// should not match path with empty pattern
+	/**
+	 * @test
+	 * @group match_path
+	 * @covers ::match()
+	 */
+	public function should_not_match_path_contains_slash_and_pattern_is_empty() {
+		$path = '/';
+		$pattern = [''];
+
+		$this->assertFalse(Path::match($path, $pattern));
+	}
+
 	/**
 	 * @test
 	 * @group match_path
@@ -151,7 +224,7 @@ class PathTest extends TestCase {
 	 * @group match_path
 	 * @covers ::match()
 	 */
-	public function it_should_not_match_path_with_similar_pattern_but_has_extra_wildcard_at_the_end() {
+	public function should_not_match_path_with_similar_pattern_but_has_extra_wildcard_at_the_end() {
 		$path = '/this/path/should/lead/to';
 		$pattern = ['/this/path/should/lead/to/*'];
 

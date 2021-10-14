@@ -2,6 +2,7 @@
 namespace Tawk\Match;
 
 use Tawk\Match\Path;
+use Tawk\Helper;
 
 // this checks for ip addresses and domains
 define('HOST_REGEX', '/^(?:[-A-Za-z0-9]+\.)+[A-Za-z0-9]{1,6}$/');
@@ -25,7 +26,7 @@ class Url{
 		$parsed_current_url = parse_url($current_url);
 
 		foreach($pattern_urls as $pattern_url) {
-			$parsed_pattern_url = parse_url($pattern_url);
+			$parsed_pattern_url = parse_url(Helper::clean_url($pattern_url));
 
 			// checks if the provided pattern has scheme (http/https)
 			// and matches with current url if it has the same scheme
@@ -78,7 +79,7 @@ class Url{
 				}
 			}
 
-			if (Path::match($current_path, [$pattern_path])) {
+			if (Path::match($current_path, [$pattern_path], true)) {
 				return true;
 			}
 		}

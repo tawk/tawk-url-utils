@@ -1,6 +1,8 @@
 <?php
 namespace Tawk\Match;
 
+use Tawk\Helper;
+
 define('WILDCARD', '*');
 
 class Path {
@@ -103,11 +105,26 @@ class Path {
 	/**
 	 * Matches the current path and the patterns that are provided
 	 */
-	public static function match($current_path, $pattern_paths = []) {
+	public static function match($current_path, $pattern_paths = [], $pattern_cleaned = false) {
 		$current_path_chunks = Path::get_chunks($current_path);
 
 		foreach($pattern_paths as $pattern_path) {
+			if ($pattern_cleaned === false) {
+				$pattern_path = Helper::clean_url($pattern_path);
+			}
+
+			// nothing to match to
+			if (empty($pattern_path)) {
+				continue;
+			}
+
 			$pattern_path_chunks = Path::get_chunks($pattern_path);
+
+			// invalidates if the current path is /path/to/somewhere
+			// and the pattern is /path/to/somewhere/*
+			if (count($current_path_chunks) < count($pattern_path_chunks)) {
+				continue;
+			}
 
 			// if it does not have wildcard, match both of the paths provided.
 			if (!Path::has_wildcard($pattern_path)) {
@@ -130,13 +147,6 @@ class Path {
 
 			// if wildcard is at the end, match the paths by splitting them into chunks
 			if (Path::is_wildcard(end($pattern_path_chunks))) {
-
-				// invalidates if the current path is /path/to/somewhere
-				// and the pattern is /path/to/somewhere/*
-				if (count($current_path_chunks) < count($pattern_path_chunks)) {
-					continue;
-				}
-
 				if (Path::match_chunks($current_path_chunks, $pattern_path_chunks)) {
 					return true;
 				}
