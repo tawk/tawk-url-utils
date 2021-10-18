@@ -1,0 +1,11 @@
+# handles fork builds that needs secrets
+name: Notify unit test
+
+on: [pull_request]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: notifying unit-test workflow
+        run: echo 'done'
