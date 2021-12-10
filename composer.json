@@ -5,10 +5,10 @@
         "phpunit/phpunit": "^9.5"
     },
     "version" : "1.0.0",
-    "require": {},
     "autoload": {
         "psr-4": {
-            "Tawk\\": "lib"
+            "Tawk\\": "lib",
+            "Tawk\\Tests\\": "tests"
         }
     },
     "scripts": {
