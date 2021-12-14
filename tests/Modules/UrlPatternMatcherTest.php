@@ -46,14 +46,6 @@ class UrlMatchTest extends TestCase {
 		$this->assertTrue($result);
 	}
 
-	// add test for */this/path/should/lead/to/somewhere
-
-	// these are paths
-	// add test for /path/should/lead/to/somewhere
-	// add test for */should/lead/to/somewhere
-
-	// if pattern is not path, add http:// at the front so parse_url can parse it properly.
-
 	/**
 	 * @test
 	 * @group match_url
