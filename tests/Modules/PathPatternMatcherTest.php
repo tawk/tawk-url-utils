@@ -249,7 +249,7 @@ class PathMatchTest extends TestCase {
 
 	/**
 	 * @test
-	 * @group test
+	 * @group match_path_wildcard_end
 	 * @covers ::match()
 	 * @small
 	 */
@@ -294,7 +294,7 @@ class PathMatchTest extends TestCase {
 
 	/**
 	 * @test
-	 * @group test
+	 * @group match_path_wildcard_end
 	 * @covers ::match()
 	 * @small
 	 */

@@ -13,7 +13,7 @@ class GetWildcardTest extends TestCase {
 	/**
 	 * @test
 	 * @group get_wildcard
-	 * @covers ::get_wildcard()
+	 * @covers ::get_wildcard
 	 */
 	public function should_return_wildcard_constant() {
 		$this->assertEquals(PathHelper::get_wildcard(), '*');
@@ -27,7 +27,7 @@ class IsPathTest extends TestCase {
 	/**
 	 * @test
 	 * @group is_path
-	 * @covers ::is_path()
+	 * @covers ::is_path
 	 */
 	public function should_return_true_if_path_has_leading_slash() {
 		$this->assertTrue(PathHelper::is_path('/path/to/somewhere'));
@@ -36,7 +36,7 @@ class IsPathTest extends TestCase {
 	/**
 	 * @test
 	 * @group is_path
-	 * @covers ::is_path()
+	 * @covers ::is_path
 	 */
 	public function should_return_true_if_path_has_leading_wildcard() {
 		$this->assertTrue(PathHelper::is_path('*/to/somewhere'));
@@ -45,7 +45,7 @@ class IsPathTest extends TestCase {
 	/**
 	 * @test
 	 * @group is_path
-	 * @covers ::is_path()
+	 * @covers ::is_path
 	 */
 	public function should_return_false_if_path_has_no_leading_slash_and_wildcard() {
 		$this->assertFalse(PathHelper::is_path('path/to/somewhere'));
@@ -59,7 +59,7 @@ class PathChunksHasWildcardTest extends TestCase {
 	/**
 	 * @test
 	 * @group path_chunks_has_wildcard
-	 * @covers ::path_chunks_has_wildcard()
+	 * @covers ::path_chunks_has_wildcard
 	 */
 	public function should_return_true_if_path_chunks_contains_wildcard() {
 		$path_chunks = array('*', 'to', 'somewhere');
@@ -69,7 +69,7 @@ class PathChunksHasWildcardTest extends TestCase {
 	/**
 	 * @test
 	 * @group path_chunks_has_wildcard
-	 * @covers ::path_chunks_has_wildcard()
+	 * @covers ::path_chunks_has_wildcard
 	 */
 	public function should_return_false_if_path_chunks_does_not_contain_wildcard() {
 		$path_chunks = array('path', 'to', 'somewhere');
@@ -84,7 +84,7 @@ class IsWildcardTest extends TestCase {
 	/**
 	 * @test
 	 * @group is_wildcard
-	 * @covers ::is_wildcard()
+	 * @covers ::is_wildcard
 	 */
 	public function should_return_true_if_wildcard() {
 		$this->assertTrue(PathHelper::is_wildcard('*'));
@@ -93,7 +93,7 @@ class IsWildcardTest extends TestCase {
 	/**
 	 * @test
 	 * @group is_wildcard
-	 * @covers ::is_wildcard()
+	 * @covers ::is_wildcard
 	 */
 	public function should_return_false_if_not_wildcard() {
 		$this->assertFalse(PathHelper::is_wildcard('not-wildcard'));
@@ -107,10 +107,19 @@ class GetChunksTest extends TestCase {
 	/**
 	 * @test
 	 * @group get_chunks
-	 * @covers ::get_chunks()
+	 * @covers ::get_chunks
 	 */
 	public function should_get_chunks_from_provided_path() {
 		$this->assertEquals(PathHelper::get_chunks('/path/to/somewhere'), array('path', 'to', 'somewhere'));
+	}
+
+	/**
+	 * @test
+	 * @group get_chunks
+	 * @covers ::get_chunks
+	 */
+	public function should_get_empty_string_array_if_only_provided_with_single_slash() {
+		$this->assertEquals(PathHelper::get_chunks('/'), array(''));
 	}
 }
 

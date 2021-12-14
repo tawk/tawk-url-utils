@@ -8,7 +8,7 @@ class UrlHelper {
 	/**
 	 * Parses pattern url
 	 */
-	public static function parse_pattern_url($pattern) {
+	public static function parse_url($pattern) {
 		$is_path = PathHelper::is_path($pattern);
 		$has_protocol = strpos($pattern, 'http') === 0;
 
@@ -20,8 +20,12 @@ class UrlHelper {
 		$parsed_url = parse_url($pattern);
 
 		$url_data = array(
-			'path' => $parsed_url['path'],
+			'path' => '/'
 		);
+
+		if (isset($parsed_url['path'])) {
+			$url_data['path'] = $parsed_url['path'];
+		}
 
 		if (isset($parsed_url['host'])) {
 			$url_data['host'] = $parsed_url['host'];

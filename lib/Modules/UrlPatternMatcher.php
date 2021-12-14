@@ -11,11 +11,11 @@ class UrlPatternMatcher {
 	 * Matches current url to multiple patterns
 	 */
 	public static function match($current_url, $patterns) {
-		$parsed_current_url = parse_url($current_url);
+		$parsed_current_url = UrlHelper::parse_url($current_url);
 		$current_path_chunks = PathHelper::get_chunks($parsed_current_url['path']);
 
 		foreach($patterns as $pattern) {
-			$parsed_pattern = UrlHelper::parse_pattern_url($pattern);
+			$parsed_pattern = UrlHelper::parse_url($pattern);
 
 			// checks if the provided pattern has scheme (http/https)
 			// and matches with current url if it has the same scheme
