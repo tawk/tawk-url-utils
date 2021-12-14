@@ -7,10 +7,46 @@ use Tawk\Helpers\PathHelper;
 
 class PathPatternMatcher {
 	/**
+	 * Matches current path to multiple patterns
+	 */
+	public static function match($current_path_chunks, $pattern_paths_chunks) {
+		foreach($pattern_paths_chunks as $pattern_path_chunks) {
+			$wildcard_loc = PathHelper::get_wildcard_location_by_chunks($pattern_path_chunks);
+
+			if ($wildcard_loc === WildcardLocation::NONE) {
+				if (join('/', $current_path_chunks) === join('/', $pattern_path_chunks)) {
+					return true;
+				};
+			} else if ($wildcard_loc === WildcardLocation::START) {
+				// if wildcard is at the start, match in reverse order so that the wildcard is at the end
+				if (self::match_chunks_reverse($current_path_chunks, $pattern_path_chunks) === true) {
+					return true;
+				}
+			} else {
+				if (self::match_chunks($current_path_chunks, $pattern_path_chunks) === true) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Iterates over the current and pattern path chunks and matches them
 	 */
-	private static function match_chunks($current_path_chunks, $pattern_path_chunks, $is_middle) {
-		for ($i = 0; $i < count($current_path_chunks); $i++) {
+	private static function match_chunks($current_path_chunks, $pattern_path_chunks) {
+		$wildcard_loc = PathHelper::get_wildcard_location_by_chunks($pattern_path_chunks);
+
+		$current_path_len = count($current_path_chunks);
+		$pattern_path_len = count($pattern_path_chunks);
+
+		// handles empty current path and pattern path is only a wildcard
+		if ($current_path_len === 0 && ($pattern_path_len === 1 && PathHelper::is_wildcard($pattern_path_chunks[0]))) {
+			return true;
+		}
+
+		for ($i = 0; $i < $current_path_len; $i++) {
 			$current_path_chunk = $current_path_chunks[$i];
 
 			// handles current paths that are longer than the pattern
@@ -27,11 +63,11 @@ class PathPatternMatcher {
 				// Do not stop the loop if the wildcard's at the middle.
 				// Only skip the chunk since it still needs to check the other
 				// chunks if they match or not.
-				if ($is_middle) {
+				if ($wildcard_loc === WildcardLocation::MIDDLE) {
 					continue;
 				}
 
-				break;
+				return true;
 			}
 
 			// stop matching if one of the chunks doesn't match.
@@ -46,8 +82,7 @@ class PathPatternMatcher {
 			//   pattern - /path/to/somewhere/*
 			//
 			// check the next pattern chunk if it's a wildcard
-			if ($i + 1 === count($current_path_chunks)
-				&& isset($pattern_path_chunks[$i + 1])) {
+			if ($i + 1 === $current_path_len && isset($pattern_path_chunks[$i + 1])) {
 				return PathHelper::is_wildcard($pattern_path_chunks[$i + 1]);
 			}
 		}
@@ -58,17 +93,26 @@ class PathPatternMatcher {
 	/**
 	 * Iterates over the current and pattern path chunks and matches them in reverse
 	 */
-	private static function match_chunks_reverse($current_path_chunks, $pattern_path_chunks, $is_middle) {
+	private static function match_chunks_reverse($current_path_chunks, $pattern_path_chunks) {
+		$wildcard_loc = PathHelper::get_wildcard_location_by_chunks($pattern_path_chunks);
+		$current_path_len = count($current_path_chunks);
+		$pattern_path_len = count($pattern_path_chunks);
+
+		// handles empty current path and pattern path is only a wildcard
+		if ($current_path_len === 0 && ($pattern_path_len === 1 && PathHelper::is_wildcard($pattern_path_chunks[0]))) {
+			return true;
+		}
+
 		// handles pattern paths that are longer than the current path
 		// ex.
 		//   path - /path/to/somewhere
 		//   pattern - */to/somewhere/longer
-		if (count($pattern_path_chunks) > count($current_path_chunks)) {
+		if ($pattern_path_len > $current_path_len) {
 			return false;
 		}
 
-		$offset = count($current_path_chunks) - count($pattern_path_chunks);
-		for ($i = count($current_path_chunks) - 1; $i >= 0; $i--) {
+		$offset = $current_path_len - $pattern_path_len;
+		for ($i = $current_path_len - 1; $i >= 0; $i--) {
 			$current_path_chunk = $current_path_chunks[$i];
 
 			// handles current paths that are longer than the pattern
@@ -85,11 +129,11 @@ class PathPatternMatcher {
 				// Do not stop the loop if the wildcard's at the middle.
 				// Only skip the chunk since it still needs to check the other
 				// chunks if they match or not.
-				if ($is_middle) {
+				if ($wildcard_loc === WildcardLocation::MIDDLE) {
 					continue;
 				}
 
-				break;
+				return true;
 			}
 
 			// stop matching if one of the chunks doesn't match.
@@ -99,34 +143,5 @@ class PathPatternMatcher {
 		}
 
 		return true;
-	}
-
-	/**
-	 * Matches current path to multiple patterns
-	 */
-	public static function match($current_path_chunks, $pattern_paths_chunks) {
-		foreach($pattern_paths_chunks as $pattern_path_chunks) {
-			$wildcard_loc = PathHelper::get_wildcard_location_by_chunks($pattern_path_chunks);
-
-			if ($wildcard_loc === WildcardLocation::NONE) {
-				if (join('/', $current_path_chunks) === join('/', $pattern_path_chunks)) {
-					return true;
-				};
-
-				continue;
-			} else if ($wildcard_loc === WildcardLocation::START
-				// if wildcard is at the start, match in reverse order so that the wildcard is at the end
-				&& self::match_chunks_reverse($current_path_chunks, $pattern_path_chunks, false) === true) {
-				return true;
-			} else if ($wildcard_loc === WildcardLocation::END
-				&& self::match_chunks($current_path_chunks, $pattern_path_chunks, false) === true) {
-				return true;
-			} else if ($wildcard_loc === WildcardLocation::MIDDLE
-				&& self::match_chunks($current_path_chunks, $pattern_path_chunks, true)) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 }

@@ -19,23 +19,26 @@ class UrlPatternMatcher {
 
 			// checks if the provided pattern has scheme (http/https)
 			// and matches with current url if it has the same scheme
-			if (isset($parsed_current_url['scheme']) && isset($parsed_pattern['scheme']) &&
-				$parsed_current_url['scheme'] !== $parsed_pattern['scheme']) {
-				continue;
+			if (isset($parsed_current_url['scheme']) && isset($parsed_pattern['scheme'])) {
+				if ($parsed_current_url['scheme'] !== $parsed_pattern['scheme']) {
+					continue;
+				}
 			}
 
 			// checks if the provided pattern has host
 			// and matches with current url if it has the same host
-			if (isset($parsed_current_url['host']) && isset($parsed_pattern['host']) &&
-				$parsed_current_url['host'] !== $parsed_pattern['host']) {
-				continue;
+			if (isset($parsed_current_url['host']) && isset($parsed_pattern['host'])) {
+				if ($parsed_current_url['host'] !== $parsed_pattern['host']) {
+					continue;
+				}
 			}
 
 			// checks if the provided pattern has port
 			// and matches with current url if it has the same port
-			if (isset($parsed_current_url['port']) && isset($parsed_pattern['port']) &&
-				$parsed_current_url['port'] !== $parsed_pattern['port']) {
-				continue;
+			if (isset($parsed_current_url['port']) && isset($parsed_pattern['port'])) {
+				if ($parsed_current_url['port'] !== $parsed_pattern['port']) {
+					continue;
+				}
 			}
 
 			$pattern_path_chunks = PathHelper::get_chunks($parsed_pattern['path']);

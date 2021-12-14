@@ -40,10 +40,6 @@ class PathHelper {
 	 * Gets the path chunks from the provided path
 	 */
 	public static function get_chunks($path) {
-		if ($path === '/') {
-			return array('');
-		}
-
 		$chunks = explode('/', $path);
 		$filtered_chunks = array_filter($chunks, function ($item) {
 			return empty($item) !== true;

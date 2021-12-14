@@ -119,7 +119,7 @@ class GetChunksTest extends TestCase {
 	 * @covers ::get_chunks
 	 */
 	public function should_get_empty_string_array_if_only_provided_with_single_slash() {
-		$this->assertEquals(PathHelper::get_chunks('/'), array(''));
+		$this->assertEquals(PathHelper::get_chunks('/'), array());
 	}
 }
 

@@ -29,9 +29,9 @@ class PathMatchTest extends TestCase {
 	 * @small
 	 */
 	public function should_match_both_empty_path_and_pattern() {
-		$path_chunks = array('');
+		$path_chunks = array();
 		$pattern_chunks = array(
-			array('')
+			array()
 		);
 
 		$this->assertTrue(PathPatternMatcher::match($path_chunks, $pattern_chunks));
@@ -104,7 +104,7 @@ class PathMatchTest extends TestCase {
 	 * @small
 	 */
 	public function should_match_empty_path_with_single_wildcard_pattern() {
-		$path_chunks = array('');
+		$path_chunks = array();
 		$pattern_chunks = array(
 			array('*')
 		);
@@ -224,7 +224,7 @@ class PathMatchTest extends TestCase {
 	 * @small
 	 */
 	public function should_not_match_empty_path_with_leading_wildcard_pattern() {
-		$path_chunks = array('');
+		$path_chunks = array();
 		$pattern_chunks = array(
 			array('*', 'to', 'somewhere'),
 		);
