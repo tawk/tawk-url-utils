@@ -41,9 +41,20 @@ class PathPatternMatcher {
 		$current_path_len = count($current_path_chunks);
 		$pattern_path_len = count($pattern_path_chunks);
 
-		// handles empty current path and pattern path is only a wildcard
-		if ($current_path_len === 0 && ($pattern_path_len === 1 && PathHelper::is_wildcard($pattern_path_chunks[0]))) {
-			return true;
+		// handles empty current path
+		if ($current_path_len === 0) {
+			// match if pattern path is also empty
+			if ($pattern_path_len === 0) {
+				return true;
+			}
+
+			// match if pattern path is only a wildcard
+			if ($pattern_path_len === 1 && PathHelper::is_wildcard($pattern_path_chunks[0])) {
+				return true;
+			}
+
+			// else, do not match since there's nothing to match with
+			return false;
 		}
 
 		for ($i = 0; $i < $current_path_len; $i++) {
@@ -98,9 +109,20 @@ class PathPatternMatcher {
 		$current_path_len = count($current_path_chunks);
 		$pattern_path_len = count($pattern_path_chunks);
 
-		// handles empty current path and pattern path is only a wildcard
-		if ($current_path_len === 0 && ($pattern_path_len === 1 && PathHelper::is_wildcard($pattern_path_chunks[0]))) {
-			return true;
+		// handles empty current path
+		if ($current_path_len === 0) {
+			// match if pattern path is also empty
+			if ($pattern_path_len === 0) {
+				return true;
+			}
+
+			// match if pattern path is only a wildcard
+			if ($pattern_path_len === 1 && PathHelper::is_wildcard($pattern_path_chunks[0])) {
+				return true;
+			}
+
+			// else, do not match since there's nothing to match with
+			return false;
 		}
 
 		// handles pattern paths that are longer than the current path
