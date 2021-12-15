@@ -4,13 +4,15 @@ namespace Tawk\Helpers;
 
 use Tawk\Helpers\PathHelper;
 
+define('PROTOCOL_REGEX', '/^(http|https):\/\//');
+
 class UrlHelper {
 	/**
 	 * Parses pattern url
 	 */
 	public static function parse_url($pattern) {
 		$is_path = PathHelper::is_path($pattern);
-		$has_protocol = strpos($pattern, 'http') === 0;
+		$has_protocol = preg_match(PROTOCOL_REGEX, $pattern) === 1;
 
 		if ($is_path === false && $has_protocol === false) {
 			// add http:// in front of the string
