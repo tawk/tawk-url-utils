@@ -298,6 +298,21 @@ class PathMatchTest extends TestCase {
 	 * @covers ::match()
 	 * @small
 	 */
+	public function should_not_match_empty_path_with_trailing_wildcard_pattern() {
+		$path_chunks = array();
+		$pattern_chunks = array(
+			array('different', 'path', '*'),
+		);
+
+		$this->assertFalse(PathPatternMatcher::match($path_chunks, $pattern_chunks));
+	}
+
+	/**
+	 * @test
+	 * @group match_path_wildcard_end
+	 * @covers ::match()
+	 * @small
+	 */
 	public function should_not_match_path_with_trailing_wildcard_pattern_that_contains_the_full_path_but_has_additional_path() {
 		$path_chunks = array('path', 'to', 'somewhere');
 		$pattern_chunks = array(
