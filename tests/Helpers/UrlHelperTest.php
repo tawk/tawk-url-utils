@@ -14,6 +14,7 @@ class ParsePatternUrl extends Testcase {
 	 * @test
 	 * @group parse_url
 	 * @covers ::parse_url
+	 * @small
 	 */
 	public function should_parse_provided_pattern_url() {
 		$pattern_url = 'http://www.example.com:80/path/to/somewhere';
@@ -29,6 +30,7 @@ class ParsePatternUrl extends Testcase {
 	 * @test
 	 * @group parse_url
 	 * @covers ::parse_url
+	 * @small
 	 */
 	public function should_parse_provided_pattern_url_without_scheme() {
 		$pattern_url = 'www.example.com:80/path/to/somewhere';
@@ -43,6 +45,7 @@ class ParsePatternUrl extends Testcase {
 	 * @test
 	 * @group parse_url
 	 * @covers ::parse_url
+	 * @small
 	 */
 	public function should_parse_provided_pattern_url_without_port() {
 		$pattern_url = 'http://www.example.com/path/to/somewhere';
@@ -57,6 +60,7 @@ class ParsePatternUrl extends Testcase {
 	 * @test
 	 * @group parse_url
 	 * @covers ::parse_url
+	 * @small
 	 */
 	public function should_parse_provided_pattern_url_without_path() {
 		$pattern_url = 'http://www.example.com:80';
@@ -72,6 +76,7 @@ class ParsePatternUrl extends Testcase {
 	 * @test
 	 * @group parse_url
 	 * @covers ::parse_url
+	 * @small
 	 */
 	public function should_parse_provided_pattern_path() {
 		$pattern_path = '/path/to/somewhere';
@@ -84,6 +89,7 @@ class ParsePatternUrl extends Testcase {
 	 * @test
 	 * @group parse_url
 	 * @covers ::parse_url
+	 * @small
 	 */
 	public function should_parse_set_host_if_provided_pattern_path_has_no_leading_slash() {
 		$pattern_path = 'path/to/somewhere';

@@ -8,18 +8,26 @@ define('PROTOCOL_REGEX', '/^(http|https):\/\//');
 
 class UrlHelper {
 	/**
-	 * Parses pattern url
+	 * Parses provided url
+	 *
+	 * @param  string $url - URL
+	 * @return array{
+	 *  path: string,
+	 *  host?: string,
+	 *  port?: string,
+	 *  scheme?: string
+	 * } Parsed url data
 	 */
-	public static function parse_url($pattern) {
-		$is_path = PathHelper::is_path($pattern);
-		$has_protocol = preg_match(PROTOCOL_REGEX, $pattern) === 1;
+	public static function parse_url($url) {
+		$is_path = PathHelper::is_path($url);
+		$has_protocol = preg_match(PROTOCOL_REGEX, $url) === 1;
 
 		if ($is_path === false && $has_protocol === false) {
 			// add http:// in front of the string
-			$pattern = 'http://'.$pattern;
+			$url = 'http://'.$url;
 		}
 
-		$parsed_url = parse_url($pattern);
+		$parsed_url = parse_url($url);
 
 		$url_data = array(
 			'path' => '/'

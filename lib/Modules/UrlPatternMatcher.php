@@ -9,6 +9,10 @@ use Tawk\Modules\PathPatternMatcher;
 class UrlPatternMatcher {
 	/**
 	 * Matches current url to multiple patterns
+	 *
+	 * @param  string $current_url - Current URL.
+	 * @param  string[] $patterns - List of patterns to match.
+	 * @return boolean Returns `true` if current url matches with one of the provided patterns. Otherwise, `false`.
 	 */
 	public static function match($current_url, $patterns) {
 		$parsed_current_url = UrlHelper::parse_url($current_url);

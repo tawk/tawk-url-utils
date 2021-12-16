@@ -7,7 +7,11 @@ use Tawk\Helpers\PathHelper;
 
 class PathPatternMatcher {
 	/**
-	 * Matches current path to multiple patterns
+	 * Matches provided path to multiple patterns
+	 *
+	 * @param  string[] $current_path_chunks - Current path in chunks
+	 * @param  string[][] $pattern_paths_chunks - Multiple pattern paths in chunks
+	 * @return boolean Returns `true` if current path matches with one of the patterns. Otherwise, `false`.
 	 */
 	public static function match($current_path_chunks, $pattern_paths_chunks) {
 		foreach($pattern_paths_chunks as $pattern_path_chunks) {
@@ -34,6 +38,10 @@ class PathPatternMatcher {
 
 	/**
 	 * Iterates over the current and pattern path chunks and matches them
+	 *
+	 * @param  string[] $current_path_chunks - Current path in chunks
+	 * @param  string[] $pattern_path_chunks - Pattern path in chunks
+	 * @return boolean Returns `true` if current path matches with the pattern. Otherwise, `false`.
 	 */
 	private static function match_chunks($current_path_chunks, $pattern_path_chunks) {
 		$wildcard_loc = PathHelper::get_wildcard_location_by_chunks($pattern_path_chunks);
@@ -103,6 +111,10 @@ class PathPatternMatcher {
 
 	/**
 	 * Iterates over the current and pattern path chunks and matches them in reverse
+	 *
+	 * @param  string[] $current_path_chunks - Current path in chunks
+	 * @param  string[] $pattern_path_chunks - Pattern path in chunks
+	 * @return boolean Returns `true` if current path matches with the pattern. Otherwise, `false`.
 	 */
 	private static function match_chunks_reverse($current_path_chunks, $pattern_path_chunks) {
 		$wildcard_loc = PathHelper::get_wildcard_location_by_chunks($pattern_path_chunks);

@@ -115,7 +115,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_wildcard_start
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_match_path_with_leading_wildcard_pattern() {
@@ -130,7 +130,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_wildcard_start
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_match_path_with_leading_wildcard_pattern_that_covers_multiple_path_chunks() {
@@ -145,7 +145,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_wildcard_start
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_not_match_path_longer_than_the_pattern_with_leading_wildcard() {
@@ -160,7 +160,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_wildcard_start
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_not_match_shorter_path_with_leading_wildcard_pattern_that_has_different_ending_path() {
@@ -175,7 +175,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_wildcard_start
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_not_match_different_ending_path_with_leading_wildcard_pattern_that_covers_multiple_path_chunks() {
@@ -190,7 +190,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_wildcard_start
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_not_match_path_with_leading_wildcard_pattern_that_covers_multiple_path_chunks_and_has_different_ending_path() {
@@ -205,7 +205,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_wildcard_start
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_not_match_path_with_leading_wildcard_pattern_that_has_no_similarities() {
@@ -220,7 +220,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_wildcard_start
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_not_match_empty_path_with_leading_wildcard_pattern() {
@@ -235,7 +235,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_wildcard_end
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_match_path_and_trailing_wildcard_pattern() {
@@ -250,7 +250,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_wildcard_end
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_match_path_and_trailing_wildcard_pattern_that_contains_the_full_path() {
@@ -265,7 +265,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_wildcard_end
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_match_path_and_trailing_wildcard_pattern_that_covers_multiple_path_chunks() {
@@ -280,7 +280,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_wildcard_end
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_not_match_path_with_trailing_wildcard_pattern_that_has_different_starting_path() {
@@ -295,7 +295,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_wildcard_end
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_not_match_empty_path_with_trailing_wildcard_pattern() {
@@ -310,7 +310,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_wildcard_end
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_not_match_path_with_trailing_wildcard_pattern_that_contains_the_full_path_but_has_additional_path() {
@@ -325,7 +325,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_wildcard_middle
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_match_path_with_middle_wildcard_pattern() {
@@ -340,7 +340,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_wildcard_middle
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_match_path_with_multiple_middle_wildcard_pattern() {
@@ -355,7 +355,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_wildcard_middle
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_match_path_with_multiple_succeeding_middle_wildcard_pattern() {
@@ -370,7 +370,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_wildcard_middle
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_not_match_path_with_middle_wildcard_pattern_that_has_different_start_and_end_paths() {
@@ -385,7 +385,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_multiple
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_match_path_with_one_of_the_provided_patterns() {
@@ -402,7 +402,7 @@ class PathMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_path_multiple
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_not_match_path_with_any_of_the_provided_patterns_that_are_different() {

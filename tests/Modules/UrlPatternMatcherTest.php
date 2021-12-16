@@ -177,7 +177,7 @@ class UrlMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_url_with_full_url_and_path
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_match_url_with_full_url_and_middle_wildcard_path_pattern() {
@@ -191,7 +191,7 @@ class UrlMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_url_with_full_url_and_path
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_match_url_with_full_url_and_only_wildcard_path_pattern() {
@@ -205,7 +205,7 @@ class UrlMatchTest extends TestCase {
 	/**
 	 * @test
 	 * @group match_url_with_full_url_and_path
-	 * @covers ::match()
+	 * @covers ::match
 	 * @small
 	 */
 	public function should_match_url_and_empty_path_with_full_url_and_only_wildcard_path_pattern() {
