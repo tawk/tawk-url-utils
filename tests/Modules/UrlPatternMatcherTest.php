@@ -1,5 +1,7 @@
 <?php
 
+namespace Tawk\Tests\Modules;
+
 use PHPUnit\Framework\TestCase;
 use Tawk\Modules\UrlPatternMatcher;
 
