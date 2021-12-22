@@ -1,5 +1,7 @@
 <?php
 
+namespace Tawk\Tests\Enums;
+
 use PHPUnit\Framework\TestCase;
 use Tawk\Enums\WildcardLocation;
 
