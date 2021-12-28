@@ -1,13 +1,13 @@
 <?php
 
-namespace Tawk\Helpers\PathHelperTest;
+namespace Tawk\Tests\Helpers\PathHelperTest;
 
 use PHPUnit\Framework\TestCase;
 use Tawk\Enums\WildcardLocation;
 use Tawk\Helpers\PathHelper;
 
 /**
- * @coversDefaultClass \Tawk\Modules\PathHelper
+ * @coversDefaultClass \Tawk\Helpers\PathHelper
  */
 class GetWildcardTest extends TestCase {
 	/**
@@ -22,7 +22,7 @@ class GetWildcardTest extends TestCase {
 }
 
 /**
- * @coversDefaultClass \Tawk\Modules\PathHelper
+ * @coversDefaultClass \Tawk\Helpers\PathHelper
  */
 class IsPathTest extends TestCase {
 	/**
@@ -57,7 +57,7 @@ class IsPathTest extends TestCase {
 }
 
 /**
- * @coversDefaultClass \Tawk\Modules\PathHelper
+ * @coversDefaultClass \Tawk\Helpers\PathHelper
  */
 class PathChunksHasWildcardTest extends TestCase {
 	/**
@@ -84,7 +84,7 @@ class PathChunksHasWildcardTest extends TestCase {
 }
 
 /**
- * @coversDefaultClass \Tawk\Modules\PathHelper
+ * @coversDefaultClass \Tawk\Helpers\PathHelper
  */
 class IsWildcardTest extends TestCase {
 	/**
@@ -109,7 +109,7 @@ class IsWildcardTest extends TestCase {
 }
 
 /**
- * @coversDefaultClass \Tawk\Modules\PathHelper
+ * @coversDefaultClass \Tawk\Helpers\PathHelper
  */
 class GetChunksTest extends TestCase {
 	/**
@@ -134,7 +134,7 @@ class GetChunksTest extends TestCase {
 }
 
 /**
- * @coversDefaultClass \Tawk\Modules\PathHelper
+ * @coversDefaultClass \Tawk\Helpers\PathHelper
  */
 class GetWildcardLocationByChunks extends TestCase {
 	/**
@@ -147,6 +147,7 @@ class GetWildcardLocationByChunks extends TestCase {
 		$path_chunks = array('*', 'to', 'somewhere');
 		$this->assertEquals(PathHelper::get_wildcard_location_by_chunks($path_chunks), WildcardLocation::START);
 	}
+
 	/**
 	 * @test
 	 * @group get_wildcard_location_by_chunks
@@ -157,6 +158,7 @@ class GetWildcardLocationByChunks extends TestCase {
 		$path_chunks = array('path', '*', 'somewhere');
 		$this->assertEquals(PathHelper::get_wildcard_location_by_chunks($path_chunks), WildcardLocation::MIDDLE);
 	}
+
 	/**
 	 * @test
 	 * @group get_wildcard_location_by_chunks
@@ -167,6 +169,7 @@ class GetWildcardLocationByChunks extends TestCase {
 		$path_chunks = array('path', 'to', '*');
 		$this->assertEquals(PathHelper::get_wildcard_location_by_chunks($path_chunks), WildcardLocation::END);
 	}
+
 	/**
 	 * @test
 	 * @group get_wildcard_location_by_chunks
@@ -176,5 +179,76 @@ class GetWildcardLocationByChunks extends TestCase {
 	public function should_return_none_if_provided_chunks_has_no_wildcard() {
 		$path_chunks = array('path', 'to', 'somewhere');
 		$this->assertEquals(PathHelper::get_wildcard_location_by_chunks($path_chunks), WildcardLocation::NONE);
+	}
+}
+
+/**
+ * @coversDefaultClass \Tawk\Helpers\PathHelper
+ */
+class CheckStrictLength extends TestCase {
+	/**
+	 * @test
+	 * @group path_has_strict_length
+	 * @covers ::path_has_strict_length
+	 * @small
+	 */
+	public function should_be_true_if_provided_path_has_leading_slash_and_wildcard() {
+		$path = '/*/to/somewhere';
+		$this->assertTrue(PathHelper::path_has_strict_length($path, WildcardLocation::START));
+	}
+
+	/**
+	 * @test
+	 * @group path_has_strict_length
+	 * @covers ::path_has_strict_length
+	 * @small
+	 */
+	public function should_be_true_if_provided_path_has_trailing_wildcard_and_slash() {
+		$path = '/path/to/*/';
+		$this->assertTrue(PathHelper::path_has_strict_length($path, WildcardLocation::END));
+	}
+
+	/**
+	 * @test
+	 * @group path_has_strict_length
+	 * @covers ::path_has_strict_length
+	 * @small
+	 */
+	public function should_be_false_if_provided_path_has_leading_wildcard_and_slash() {
+		$path = '*/to/somewhere';
+		$this->assertFalse(PathHelper::path_has_strict_length($path, WildcardLocation::START));
+	}
+
+	/**
+	 * @test
+	 * @group path_has_strict_length
+	 * @covers ::path_has_strict_length
+	 * @small
+	 */
+	public function should_be_false_if_provided_path_has_trailing_slash_and_wildcard() {
+		$path = '/path/to/*';
+		$this->assertFalse(PathHelper::path_has_strict_length($path, WildcardLocation::END));
+	}
+
+	/**
+	 * @test
+	 * @group path_has_strict_length
+	 * @covers ::path_has_strict_length
+	 * @small
+	 */
+	public function should_be_false_if_provided_path_has_no_leading_or_trailing_slash_and_wildcard() {
+		$path = '/path/*/somewhere';
+		$this->assertFalse(PathHelper::path_has_strict_length($path, WildcardLocation::MIDDLE));
+	}
+
+	/**
+	 * @test
+	 * @group path_has_strict_length
+	 * @covers ::path_has_strict_length
+	 * @small
+	 */
+	public function should_be_false_if_provided_path_has_different_wildcard_location_on_path() {
+		$path = '/path/somewhere/*/';
+		$this->assertFalse(PathHelper::path_has_strict_length($path, WildcardLocation::START));
 	}
 }

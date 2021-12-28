@@ -1,13 +1,13 @@
 <?php
 
-namespace Tawk\Helpers\UrlHelperTest;
+namespace Tawk\Tests\Helpers\UrlHelperTest;
 
 use PHPUnit\Framework\TestCase;
 
 use Tawk\Helpers\UrlHelper;
 
 /**
- * @coversDefaultClass \Tawk\Modules\UrlHelper
+ * @coversDefaultClass \Tawk\Helpers\UrlHelper
  */
 class ParsePatternUrl extends Testcase {
 	/**

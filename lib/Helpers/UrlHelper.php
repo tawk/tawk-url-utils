@@ -8,22 +8,28 @@ define('PROTOCOL_REGEX', '/^(http|https):\/\//');
 
 class UrlHelper {
 	/**
-	 * Parses provided url
+	 * Parses url
 	 *
-	 * @param  string $url - URL
-	 * @return array{
+	 * @param  string $url
+	 *
+	 * @return array {
 	 *  path: string,
-	 *  host?: string,
-	 *  port?: string,
-	 *  scheme?: string
-	 * } Parsed url data
+	 *  host: string?,
+	 *  port: string?,
+	 *  scheme: string?
+	 * }
 	 */
 	public static function parse_url($url) {
 		$is_path = PathHelper::is_path($url);
 		$has_protocol = preg_match(PROTOCOL_REGEX, $url) === 1;
 
 		if ($is_path === false && $has_protocol === false) {
-			// add http:// in front of the string
+			// Add http:// in front of the string to properly parse the provided url.
+			// The reason is if the url provided only consists of the following example:
+			//
+			// www.example.com/path/to/somewhere
+			//
+			// parse_url function will treat the whole url as a path.
 			$url = 'http://'.$url;
 		}
 
