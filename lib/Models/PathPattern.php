@@ -13,7 +13,7 @@ class PathPattern {
 	/**
 	 * Constructor
 	 *
-	 * @param  string $path - URL Path
+	 * @param  string $path URL Path
 	 */
 	protected function __construct($path) {
 		$this->path_chunks = PathHelper::get_chunks($path);

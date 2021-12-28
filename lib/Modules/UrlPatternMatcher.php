@@ -11,8 +11,8 @@ class UrlPatternMatcher {
 	/**
 	 * Matches current url to multiple patterns
 	 *
-	 * @param  string $current_url - Current URL
-	 * @param  string[] $patterns - List of URL/Path patterns
+	 * @param  string $current_url Current URL
+	 * @param  string[] $patterns  List of URL/Path patterns
 	 * @return bool - Returns `true` if current url matches to one of the provided patterns. Otherwise, returns `false`.
 	 */
 	public static function match($current_url, $patterns) {

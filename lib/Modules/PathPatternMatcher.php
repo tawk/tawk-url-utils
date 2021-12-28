@@ -11,7 +11,7 @@ class PathPatternMatcher {
 	 * Matches current path to multiple patterns
 	 *
 	 * @param  string[] $current_path_chunks Current path in chunks
-	 * @param  PathPattern[] $path_patterns List of path pattern instances
+	 * @param  PathPattern[] $path_patterns  List of path pattern instances
 	 * @return bool Returns `true` if current path chunks matches with one of the provided patterns. Otherwise, returns `false`.
 	 */
 	public static function match($current_path_chunks, $path_patterns) {
@@ -41,8 +41,8 @@ class PathPatternMatcher {
 	/**
 	 * Iterates over the current and pattern path chunks and matches them
 	 *
-	 * @param  string[] $current_path_chunks - Current path in chunks
-	 * @param  string[] $pattern_path_chunks - Pattern path in chunks
+	 * @param  string[] $current_path_chunks Current path in chunks
+	 * @param  string[] $pattern_path_chunks Pattern path in chunks
 	 * @return boolean Returns `true` if current path matches with the pattern. Otherwise, `false`.
 	 */
 	private static function match_chunks($current_path_chunks, $pattern_path_chunks, $has_strict_length) {
@@ -115,8 +115,8 @@ class PathPatternMatcher {
 	/**
 	 * Iterates over the current and pattern path chunks and matches them in reverse
 	 *
-	 * @param  string[] $current_path_chunks - Current path in chunks
-	 * @param  string[] $pattern_path_chunks - Pattern path in chunks
+	 * @param  string[] $current_path_chunks Current path in chunks
+	 * @param  string[] $pattern_path_chunks Pattern path in chunks
 	 * @return boolean Returns `true` if current path matches with the pattern. Otherwise, `false`.
 	 */
 	private static function match_chunks_reverse($current_path_chunks, $pattern_path_chunks, $has_strict_length) {

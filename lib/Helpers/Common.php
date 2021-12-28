@@ -18,7 +18,7 @@ class Common {
 	/**
 	 * Checks the provided text ends with.
 	 *
-	 * @param  string $text The text to be checked
+	 * @param  string $text      The text to be checked
 	 * @param  string $ends_with The text to match from the provided text to start with.
 	 * @return void
 	 */
