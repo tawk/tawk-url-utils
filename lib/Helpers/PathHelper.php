@@ -20,7 +20,7 @@ class PathHelper {
 	 * Checks if provided path starts with the WILDCARD or /.
 	 * If it is, it is considered as a path.
 	 *
-	 * @param  string $path - URL Path.
+	 * @param  string $path URL Path.
 	 * @return bool Returns `true` if the provided path either has a leading `/` or WILDCARD. Otherwise, returns `false`.
 	 */
 	public static function is_path($path) {
@@ -30,7 +30,7 @@ class PathHelper {
 	/**
 	 * Checks if the pattern chunks provided has a wildcard
 	 *
-	 * @param  string[] $path_chunks - URL Path in chunks.
+	 * @param  string[] $path_chunks URL Path in chunks.
 	 * @return bool Returns `true` if there's a WILDCARD in the provided path chunks. Otherwise, returns `false`.
 	 */
 	public static function path_chunks_has_wildcard($path_chunks) {
@@ -40,7 +40,7 @@ class PathHelper {
 	/**
 	 * Checks if the pattern chunk provided is a wildcard.
 	 *
-	 * @param  string $path_chunk - URL Path chunk.
+	 * @param  string $path_chunk URL Path chunk.
 	 * @return bool Returns `true` if the chunk is a WILDCARD. Otherwise, returns `false`.
 	 */
 	public static function is_wildcard($path_chunk) {
@@ -50,7 +50,7 @@ class PathHelper {
 	/**
 	 * Gets the path chunks from the provided path.
 	 *
-	 * @param  string $path - URL Path.
+	 * @param  string $path URL Path.
 	 * @return string[] URL Path in chunks.
 	 */
 	public static function get_chunks($path) {
@@ -64,7 +64,7 @@ class PathHelper {
 	/**
 	 * Identifies where the wildcard is located in the provided chunks.
 	 *
-	 * @param  string[] $path_chunks - URL Path in chunks.
+	 * @param  string[] $path_chunks URL Path in chunks.
 	 * @return string Wildcard Location.
 	 */
 	public static function get_wildcard_location_by_chunks($path_chunks) {
@@ -90,8 +90,8 @@ class PathHelper {
 	/**
 	 * Check if path has strict length.
 	 *
-	 * @param  string $path - URL Path.
-	 * @param  string $wildcard_location - Wildcard Location.
+	 * @param  string $path              URL Path.
+	 * @param  string $wildcard_location Wildcard Location.
 	 * @return bool Returns `true` if path has strict length. Otherwise, returns `false`.
 	 */
 	public static function path_has_strict_length($path, $wildcard_location) {
