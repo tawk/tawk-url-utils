@@ -6,9 +6,9 @@ use Tawk\Enums\WildcardLocation;
 use Tawk\Helpers\PathHelper;
 
 class PathPattern {
-	protected array $path_chunks;
-	protected string $wildcard_location;
-	protected bool $strict_length_flag;
+	protected $path_chunks;
+	protected $wildcard_location;
+	protected $strict_length_flag;
 
 	/**
 	 * Constructor
