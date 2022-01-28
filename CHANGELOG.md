@@ -1,3 +1,7 @@
+# 2.0.1
+
+Fixed compatibility issue for PHP version >= 5.6.
+
 # 2.0.0
 
 ## General changes
