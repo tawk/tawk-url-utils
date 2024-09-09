@@ -1,3 +1,7 @@
+# 2.0.2
+
+Update license information.
+
 # 2.0.1
 
 Fixed compatibility issue for PHP version >= 5.6.
