@@ -26,7 +26,7 @@
         "test": "phpunit",
         "lint": "phpcs -p -s -v --runtime-set ignore_warnings_on_exit true .",
         "lint:fix": "phpcbf -p -s -v .; err=$?; if [ $err -eq 1 ]; then exit 0; else exit $err; fi;",
-        "package": "composer run clean && mkdir -p ./tmp && cp -rt ./tmp lib composer.json README.md CHANGELOG.md && zip -9 -rq ./tmp/tawk-url-utils.zip ./tmp",
+        "package": "composer run clean && mkdir -p ./tmp && cp -rt ./tmp lib composer.json README.md CHANGELOG.md && cd tmp && zip -9 -rq ./tawk-url-utils.zip . -x 'tawk-url-utils.zip'",
         "clean": "rm -rf ./tmp"
     }
 }
